@@ -8,7 +8,7 @@ TEST = TestSet.txt
 TARGET = output
 
 Mac:
-	clang main.cpp $(CFLAGS) $(DEPENDS) -o $(TARGET)
+	clang++ -std=c++11 main.cpp $(CFLAGS) $(DEPENDS) -o $(TARGET)
 Win: 
 	g++ main.cpp $(CFLAGS) $(DEPENDS) -o $(TARGET)
 	
