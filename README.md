@@ -1,20 +1,5 @@
-# AlgorithmProject
+# Algorithm Project
 
-The goal of this project is to analyze the performance of 4 different shortest path algorithms against different data sets. Our testing will include a dense graph, sparse graph, one with negative edge weights, and one with negative cycles. While not all algorithms can be used for every circumstance (such as Dijkstra’s algorithm with negative weights/cycles), we will test out as many combinations as possible in order to gather enough data to make conclusive claims. After running the four algorithms, we will determine which performed best under each circumstance and how that compares to the expected performance. To measure performance, we will compare runtimes with the expected time complexity. 
+Windows = make Win
 
-The following algorithms will be analyzed: 
-  Dijkstra (Nahn), Bellman-Ford (Tyler), Floyd-Warshall (Nahn), Johnson (Carie)
-
-GCC version: 9.3.0
-Clang version: 12
-
-July: 
-18th - Skeleton C++ file done for format
-25th - Test cases (1 - 20) posted
-
-August:
-1st - Test cases (up to 100?) posted
-1st - Finish first pass of algorithms
-2nd - Homework due
-8th - Run on single machine. Generate graphs for final report. 
-14th - Presentation
+MacOS = make Mac
