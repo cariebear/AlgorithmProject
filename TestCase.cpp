@@ -4,7 +4,7 @@
 
 using namespace std;
 
-TestCase::TestCase(vector<Edge> edges, int n) {
+TestCase::TestCase(vector<Edge> &edges, int n) {
     // resize the vector to hold `N` elements
     adjList.resize(n);
 

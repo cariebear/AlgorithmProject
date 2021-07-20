@@ -11,7 +11,7 @@ using namespace std;
 class TestCase {
     public:
         vector<vector<Node>> adjList;
-        TestCase(vector<Edge> edges, int n);
+        TestCase(vector<Edge> &edges, int n);
         void printList();
     private:
 };
