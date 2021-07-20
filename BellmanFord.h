@@ -3,8 +3,6 @@
 
 #include "TestCase.h"
 
-#include <vector>
-
 using namespace std;
 
 class BellmanFord {

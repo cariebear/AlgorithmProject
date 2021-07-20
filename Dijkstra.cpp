@@ -1,5 +1,6 @@
 #include "Dijkstra.h"
 
-Dijkstra::Dijkstra()
-{}
+Dijkstra::Dijkstra(TestCase testCase) {
+
+}
 

@@ -1,5 +1,6 @@
 #include "Johnson.h"
 
-Johnson::Johnson()
-{}
+Johnson::Johnson(TestCase testCase) {
+
+}
 

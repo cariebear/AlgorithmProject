@@ -34,10 +34,10 @@ int main(int argc, char * argv[]) {
 		testCase.printList();
 		printf("\n");
 
-		Johnson J;
-		FloydWarshall F;
+		Johnson J(testCase);
+		FloydWarshall F(testCase);
 		BellmanFord B(testCase);
-		Dijkstra D;
+		Dijkstra D(testCase);
 	}
 
 	return 0;
