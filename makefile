@@ -1,7 +1,7 @@
 #makefile
 CFLAGS = -g -Wall
 
-DEPENDS = Johnson.cpp Dijkstra.cpp BellmanFord.cpp FloydWarshall.cpp
+DEPENDS = Johnson.cpp Dijkstra.cpp BellmanFord.cpp FloydWarshall.cpp TestCase.cpp
 
 TEST = TestSet.txt
 

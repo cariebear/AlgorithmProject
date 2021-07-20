@@ -1,5 +1,8 @@
 #include "BellmanFord.h"
 
-BellmanFord::BellmanFord()
-{}
+BellmanFord::BellmanFord(TestCase testCase) {
+    
+
+
+}
 
