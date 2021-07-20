@@ -7,7 +7,7 @@ using namespace std;
 
 class BellmanFord {
 public: 
-	BellmanFord(TestCase testCase);
+	BellmanFord(TestCase &testCase);
 	
 private:
 

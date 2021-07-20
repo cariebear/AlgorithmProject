@@ -4,10 +4,10 @@
 #include "TestCase.h"
 
 class Dijkstra {
-	public: 
-		Dijkstra(TestCase testCase);
-		
-	private:
+public: 
+	Dijkstra(TestCase &testCase);
+	
+private:
 
 };
 

@@ -1,6 +1,6 @@
 #include "FloydWarshall.h"
 
-FloydWarshall::FloydWarshall(TestCase testCase) {
+FloydWarshall::FloydWarshall(TestCase &testCase) {
 
 }
 

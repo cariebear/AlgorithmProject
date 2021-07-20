@@ -4,10 +4,10 @@
 #include "TestCase.h"
 
 class Johnson {
-	public: 
-		Johnson(TestCase testCase);
-		
-	private:
+public: 
+	Johnson(TestCase &testCase);
+	
+private:
 
 };
 
