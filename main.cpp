@@ -2,11 +2,8 @@
 #include "FloydWarshall.h"
 #include "BellmanFord.h"
 #include "Dijkstra.h"
-#include "Edge.h"
 #include "TestCase.h"
 
-#include <iostream>
-#include <fstream>
 #include <string>
 #include <vector>
 
@@ -16,27 +13,24 @@ int main(int argc, char * argv[]) {
 	vector<string> arguments(argv, argv + argc);
 	vector<TestCase> allTests;
 	for (size_t i = 1; i < arguments.size(); i++) {
-		string& testFile = arguments.at(i);
-		ifstream infile(testFile);
-
-		int src, dest, weight;
-		vector<Edge> edges;
+		string& fileName = arguments.at(i);
 	
-		// assuming first line is the number of verticies in the graph
-		string firstLine;
-		getline(infile, firstLine);
-		// read rest of lines to create edges
-		while (infile >> src >> dest >> weight) {
-			edges.push_back({src, dest, weight});
-		}
-		TestCase testCase(edges, stoi(firstLine));
-		cout << "Undirected Graph from file: " << testFile << "\n";
+		// build test case graph
+		TestCase testCase(fileName);
 		testCase.printList();
-		printf("\n");
 
+		// test algorithms
 		Johnson J(testCase);
+
 		FloydWarshall F(testCase);
+
 		BellmanFord B(testCase);
+		if (B.findShortestPathsFromSource(0)) {
+			B.printDistances();
+		} else {
+			printf("A negative weight cycle was found!\n");
+		};
+
 		Dijkstra D(testCase);
 	}
 

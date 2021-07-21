@@ -2,18 +2,20 @@
 #define TESTCASE_H
 
 #include "Edge.h"
-#include "Node.h"
 
 #include <vector>
+#include <string>
 
 using namespace std;
 
 class TestCase {
     public:
-        vector<vector<Node>> adjList;
-        TestCase(vector<Edge> &edges, int n);
+        vector<vector<Edge>> adjList;
+        TestCase(string fileName);
         void printList();
     private:
+        string fileName;
+        bool isUndirected;
 };
 
 #endif

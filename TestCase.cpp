@@ -1,31 +1,54 @@
 #include "TestCase.h"
 
 #include <iostream>
+#include <fstream>
+#include <string>
+#include <vector>
 
 using namespace std;
 
-TestCase::TestCase(vector<Edge> &edges, int n) {
-    // resize the vector to hold `N` elements
-    adjList.resize(n);
+TestCase::TestCase(string fileName) : fileName(fileName) {
+    ifstream fileIn(fileName);
 
-    // add edges to the undirected graph
-    for (Edge edge: edges) {
-        adjList[edge.src].push_back({edge.dest, edge.weight});
-        adjList[edge.dest].push_back({edge.src, edge.weight});
+    // first line is the number of verticies in the graph
+    int numVerticies;
+    fileIn >> numVerticies;
+
+    // resize the vector to hold `N` elements
+    adjList.resize(numVerticies);
+
+    // second line is whether or not it is an undirected graph (directed: false, undirected: true)
+    bool isUndirected;
+    fileIn >> std::boolalpha >> isUndirected;
+    this->isUndirected = isUndirected;
+
+    // read rest of lines and add edges to the graph
+    int src, dest, weight;
+    while (fileIn >> src >> dest >> weight) {
+        adjList[src].push_back({dest, weight});
+        if (isUndirected) {
+            adjList[dest].push_back({src, weight});
+        }
     }
 }
 
 void TestCase::printList() {
+    if (isUndirected) {
+        cout << endl << "------ Undirected Graph ";
+    } else {
+        cout << endl << "------ Directed Graph ";
+    }
+    cout << "from file: " << fileName << " ------" << endl;
     for (size_t i = 0; i < this->adjList.size(); i++) {
         cout << i << ": ";
         for (size_t j = 0; j < this->adjList.at(i).size(); j++) {
-            Node node = this->adjList.at(i).at(j);
+            Edge edge = this->adjList.at(i).at(j);
             if (j == 0) {
-                cout << "(" << node.vertex << ", " << node.weight << ")";
+                cout << "(" << edge.dest << ", " << edge.weight << ")";
             } else {
-                cout << " -> (" << node.vertex << ", " << node.weight << ")";
+                cout << " -> (" << edge.dest << ", " << edge.weight << ")";
             }
         }
-        printf("\n");
+        cout << endl;
     }
 }

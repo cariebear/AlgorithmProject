@@ -7,10 +7,15 @@ using namespace std;
 
 class BellmanFord {
 public: 
+	vector<int> distances;
 	BellmanFord(TestCase &testCase);
-	
-private:
+	bool findShortestPathsFromSource(int src);
+	void printDistances();
+	double timeTaken;
 
+private:
+	int numVerticies;
+	vector<vector<Edge>> *adjList;
 };
 
 #endif

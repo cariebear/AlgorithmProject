@@ -4,7 +4,6 @@
 
 struct Edge {
     
-    int src;
 	int dest;
     int weight;
 
