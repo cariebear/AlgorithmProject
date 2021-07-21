@@ -36,6 +36,7 @@ bool BellmanFord::findShortestPathsFromSource(int src) {
             int dest = adjList->at(i).at(j).dest;
             int weight = adjList->at(i).at(j).weight;
             if (distances[i] != __INT_MAX__ && distances[i] + weight < distances[dest]) {
+                printf("A negative weight cycle was found.\n");
                 return false;
             }
         }

@@ -20,22 +20,32 @@ int main(int argc, char * argv[]) {
 		testCase.printList();
 
 		// test algorithms
-		Johnson J(testCase);
-
-		FloydWarshall F(testCase);
+		Dijkstra D(testCase);
+		if (D.findShortestPathsFromSource(0)) {
+			D.printDistances();
+		} else {
+			printf("Could not find shortest distances for Dijkstra.\n");
+		};
 
 		BellmanFord B(testCase);
 		if (B.findShortestPathsFromSource(0)) {
 			B.printDistances();
 		} else {
-			printf("A negative weight cycle was found.\n");
+			printf("Could not find shortest distances for BellmanFord.\n");
 		};
 
-		Dijkstra D(testCase);
-		if (D.findShortestPathsFromSource(0)) {
-			D.printDistances();
+		Johnson J(testCase);
+		if (J.findShortestPathsFromSource(0)) {
+			J.printDistances();
 		} else {
-			printf("Could not find shortest distances.\n");
+			printf("Could not find shortest distances for Johnson.\n");
+		};
+
+		FloydWarshall F(testCase);
+		if (F.findShortestPaths()) {
+			F.printDistances();
+		} else {
+			printf("Could not find shortest distances for FloydWarshall.\n");
 		};
 	}
 

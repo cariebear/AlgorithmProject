@@ -8,10 +8,12 @@ using namespace std;
 class BellmanFord {
 public: 
 	vector<int> distances;
+	double timeTaken;
+
 	BellmanFord(TestCase &testCase);
+	
 	bool findShortestPathsFromSource(int src);
 	void printDistances();
-	double timeTaken;
 
 private:
 	int numVerticies;
