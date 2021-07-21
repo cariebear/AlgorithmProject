@@ -28,10 +28,15 @@ int main(int argc, char * argv[]) {
 		if (B.findShortestPathsFromSource(0)) {
 			B.printDistances();
 		} else {
-			printf("A negative weight cycle was found!\n");
+			printf("A negative weight cycle was found.\n");
 		};
 
 		Dijkstra D(testCase);
+		if (D.findShortestPathsFromSource(0)) {
+			D.printDistances();
+		} else {
+			printf("Could not find shortest distances.\n");
+		};
 	}
 
 	return 0;
