@@ -1,6 +1,7 @@
 #include "BellmanFord.h"
 
 #include <iostream>
+#include <chrono>
 
 using namespace std;
 
@@ -11,6 +12,8 @@ BellmanFord::BellmanFord(TestCase &testCase) {
 }
 
 bool BellmanFord::findShortestPathsFromSource(int src) {
+    auto start = chrono::high_resolution_clock::now();
+
     // initalize distancesances
     for (int i = 0; i < numVerticies; i++) {
         distances[i] = __INT_MAX__;
@@ -36,11 +39,18 @@ bool BellmanFord::findShortestPathsFromSource(int src) {
             int dest = adjList->at(i).at(j).dest;
             int weight = adjList->at(i).at(j).weight;
             if (distances[i] != __INT_MAX__ && distances[i] + weight < distances[dest]) {
+                auto stop = chrono::high_resolution_clock::now();
+                chrono::duration<double, std::milli> time = stop - start;
+                timeTaken = time.count();
                 printf("A negative weight cycle was found.\n");
                 return false;
             }
         }
     }
+
+    auto stop = chrono::high_resolution_clock::now();
+    chrono::duration<double, std::milli> time = stop - start;
+    timeTaken = time.count();
     return true;
 }
 

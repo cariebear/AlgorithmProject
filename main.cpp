@@ -26,6 +26,7 @@ int main(int argc, char * argv[]) {
 		} else {
 			printf("Could not find shortest distances for Dijkstra.\n");
 		};
+		printf("Time taken: %f ms\n", D.timeTaken);
 
 		BellmanFord B(testCase);
 		if (B.findShortestPathsFromSource(0)) {
@@ -33,6 +34,7 @@ int main(int argc, char * argv[]) {
 		} else {
 			printf("Could not find shortest distances for BellmanFord.\n");
 		};
+		printf("Time taken: %f ms\n", B.timeTaken);
 
 		Johnson J(testCase);
 		if (J.findShortestPathsFromSource(0)) {
@@ -40,6 +42,7 @@ int main(int argc, char * argv[]) {
 		} else {
 			printf("Could not find shortest distances for Johnson.\n");
 		};
+		printf("Time taken: %f ms\n", J.timeTaken);
 
 		FloydWarshall F(testCase);
 		if (F.findShortestPaths()) {
@@ -47,6 +50,7 @@ int main(int argc, char * argv[]) {
 		} else {
 			printf("Could not find shortest distances for FloydWarshall.\n");
 		};
+		printf("Time taken: %f ms\n", F.timeTaken);
 	}
 
 	return 0;

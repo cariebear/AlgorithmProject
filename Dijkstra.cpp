@@ -1,6 +1,7 @@
 #include "Dijkstra.h"
 
 #include <iostream>
+#include <chrono>
 
 using namespace std;
 
@@ -11,8 +12,13 @@ Dijkstra::Dijkstra(TestCase &testCase) {
 }
 
 bool Dijkstra::findShortestPathsFromSource(int src) {
+    auto start = chrono::high_resolution_clock::now();
+    
+    // Algorithim Implementation Here
 
-    // algorithm impl here
+    auto stop = chrono::high_resolution_clock::now();
+    chrono::duration<double, std::milli> time = stop - start;
+    timeTaken = time.count();
     return true;
 
 }
