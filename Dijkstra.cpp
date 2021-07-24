@@ -109,6 +109,11 @@ void Dijkstra::printDistances() {
     printf("\n*** Dijkstra ***");
     printf("\nVertex\t\t Distance from Source\n");
     for (int i = 0; i < numVerticies; i++) {
-        printf("%d \t\t %d\n", i, distances[i]);
+        if(distances[i] < 0) {
+            printf("%d \t\t INF\n", i);
+        }
+        else {
+            printf("%d \t\t %d\n", i, distances[i]);
+        }
     }
 }
