@@ -2,12 +2,13 @@
 #define FLOYDDWARSHALL_H
 
 #include "TestCase.h"
+#include <limits>
 
 using namespace std;
 
 class FloydWarshall {
 public: 
-	vector<int> distances;
+	vector<vector<int>> distMatrix;
 	double timeTaken;
 
 	FloydWarshall(TestCase &testCase);
@@ -18,7 +19,7 @@ public:
 private:
 	int numVerticies;
 	vector<vector<Edge>> *adjList;
-
+	const int INF = std::numeric_limits<int>::max();
 };
 
 #endif
