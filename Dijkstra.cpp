@@ -23,7 +23,7 @@ bool Dijkstra::findShortestPathsFromSource(int src) {
                 chrono::duration<double, std::milli> time = stop - start;
                 timeTaken = time.count();
                 cout << "Sorry! Cannot run Dijkstra's Algorithm with negative weights." << endl;
-                return true;
+                return false;
             }
         }
     }
@@ -34,7 +34,7 @@ bool Dijkstra::findShortestPathsFromSource(int src) {
         distances[i] = -1;
     }
 
-    bool hasVisited[adjList->size()] = {}; // initialize to false
+    vector<bool> hasVisited(adjList->size(), false); // initialize to false
 
     // analyze the first node
     distances[src] = 0; // source node is reachable to itself duh... right?
@@ -77,7 +77,7 @@ bool Dijkstra::findShortestPathsFromSource(int src) {
 
 // Returns the index of the node with the smallest distance that hasn't been visited,
 // or -1 if all the nodes have been visited.
-int Dijkstra::findShortestUnvisited(bool hasVisited[], vector<int>& distances) {
+int Dijkstra::findShortestUnvisited(vector<bool>& hasVisited, vector<int>& distances) {
     int indexOfSmallest = -1;
     int distanceOfSmallest = -1;
 

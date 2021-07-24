@@ -18,7 +18,7 @@ public:
 private:
 	int numVerticies;
 	vector<vector<Edge>> *adjList;
-	int findShortestUnvisited(bool hasVisited[], vector<int> & distances);
+	int findShortestUnvisited(vector<bool>& hasVisited, vector<int> & distances);
 
 };
 
