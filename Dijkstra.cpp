@@ -12,22 +12,19 @@ Dijkstra::Dijkstra(TestCase &testCase) {
 }
 
 bool Dijkstra::findShortestPathsFromSource(int src) {
-    auto start = chrono::high_resolution_clock::now();
-    
     // Sanity Check; cannot run Dijkstra's on graphs with negative weights
+    // Don't time this part of the algorithm, as it is not a part of Dijkstra
     // O(E)
     for(size_t i = 0; i < adjList->size(); i++) {
         for(size_t j = 0; j < adjList->at(i).size(); j++) {
             if(adjList->at(i).at(j).weight < 0) {
-                auto stop = chrono::high_resolution_clock::now();
-                chrono::duration<double, std::milli> time = stop - start;
-                timeTaken = time.count();
                 cout << "Sorry! Cannot run Dijkstra's Algorithm with negative weights." << endl;
                 return false;
             }
         }
     }
 
+    auto start = chrono::high_resolution_clock::now();
 
     // Initialize our distances array to -1 (to indicate not yet reachable)
     for(size_t i = 0; i < distances.size(); i++) {
@@ -106,8 +103,7 @@ int Dijkstra::findShortestUnvisited(vector<bool>& hasVisited, vector<int>& dista
 }
 
 void Dijkstra::printDistances() {
-    printf("\n*** Dijkstra ***");
-    printf("\nVertex\t\t Distance from Source\n");
+    printf("Vertex\t\t Distance from Source\n");
     for (int i = 0; i < numVerticies; i++) {
         if(distances[i] < 0) {
             printf("%d \t\t INF\n", i);

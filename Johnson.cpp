@@ -23,8 +23,7 @@ bool Johnson::findShortestPathsFromSource(int src) {
 }
 
 void Johnson::printDistances() {
-    printf("\n*** Johnson ***");
-    printf("\nVertex\t\t Distance from Source\n");
+    printf("Vertex\t\t Distance from Source\n");
     for (int i = 0; i < numVerticies; i++) {
         printf("%d \t\t %d\n", i, distances[i]);
     }

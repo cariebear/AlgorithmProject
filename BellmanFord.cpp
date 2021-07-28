@@ -55,8 +55,7 @@ bool BellmanFord::findShortestPathsFromSource(int src) {
 }
 
 void BellmanFord::printDistances() {
-    printf("\n*** BellmanFord ***");
-    printf("\nVertex\t\t Distance from Source\n");
+    printf("Vertex\t\t Distance from Source\n");
     for (int i = 0; i < numVerticies; i++) {
         printf("%d \t\t %d\n", i, distances[i]);
     }

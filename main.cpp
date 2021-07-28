@@ -21,6 +21,7 @@ int main(int argc, char * argv[]) {
 
 		// test algorithms
 		Dijkstra D(testCase);
+		printf("\n*** Dijkstra ***\n");
 		if (D.findShortestPathsFromSource(0)) {
 			D.printDistances();
 		} else {
@@ -29,6 +30,7 @@ int main(int argc, char * argv[]) {
 		printf("Time taken: %f ms\n", D.timeTaken);
 
 		BellmanFord B(testCase);
+		printf("\n*** BellmanFord ***\n");
 		if (B.findShortestPathsFromSource(0)) {
 			B.printDistances();
 		} else {
@@ -37,6 +39,7 @@ int main(int argc, char * argv[]) {
 		printf("Time taken: %f ms\n", B.timeTaken);
 
 		Johnson J(testCase);
+		printf("\n*** Johnson ***\n");
 		if (J.findShortestPathsFromSource(0)) {
 			J.printDistances();
 		} else {
@@ -45,6 +48,7 @@ int main(int argc, char * argv[]) {
 		printf("Time taken: %f ms\n", J.timeTaken);
 
 		FloydWarshall F(testCase);
+		printf("\n*** Floyd Warshall ***\n");
 		if (F.findShortestPaths()) {
 			F.printDistances();
 		} else {

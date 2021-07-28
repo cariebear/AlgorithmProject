@@ -62,7 +62,7 @@ bool FloydWarshall::findShortestPaths() {
 }
 
 void FloydWarshall::printDistances() {
-    cout << "\n*** Floyd-Warshall Distance Matrix ***" << endl;
+    cout << "Distance Matrix" << endl;
     for(size_t i = 0; i < distMatrix.size(); i++) {
         cout << "\t" << i;    
     }
