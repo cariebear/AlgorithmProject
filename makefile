@@ -10,7 +10,7 @@ TARGET = output
 Mac:
 	clang++ -std=c++11 main.cpp $(CFLAGS) $(DEPENDS) -o $(TARGET)
 Win: 
-	g++ main.cpp $(CFLAGS) $(DEPENDS) -o $(TARGET)
+	g++ -std=c++17 main.cpp $(CFLAGS) $(DEPENDS) -o $(TARGET)
 	
 run:
 	./$(TARGET) $(TEST)
