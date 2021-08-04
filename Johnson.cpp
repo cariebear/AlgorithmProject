@@ -11,7 +11,7 @@ Johnson::Johnson(TestCase &testCase) {
     adjList = &testCase.adjList;
     numVerticies = adjList->size();
     distances.resize(numVerticies);
-    distPositive = vector<vector<int>>(adjList->size(), vector<int>(adjList->size(), INF));
+    //distPositive = vector<vector<int>>(adjList->size(), vector<int>(adjList->size(), INF));
 }
 
 int Johnson::getVert()
@@ -20,37 +20,37 @@ int Johnson::getVert()
 }
 
 // Part of the Dijkstra implementation
-int findShortestUnvisited(vector<bool>& hasVisited, vector<int>& distancesTemp) 
+int findShortestUnvisited(vector<bool>& hasVisited, vector<int>& distances) 
 {
     int indexOfSmallest = -1;
     int distanceOfSmallest = -1;
 
     // First, find the first unvisited node
     size_t i; // index
-    for(i = 0; i < distancesTemp.size(); i++) 
+    for(i = 0; i < distances.size(); i++) 
     {
         // Note: distance of -1 implies not reachable yet and not a candidate for next step in Dijkstra's
-        if(hasVisited[i] == false && distancesTemp[i] != -1) { 
+        if(hasVisited[i] == false && distances[i] != -1) { 
             indexOfSmallest = i;
-            distanceOfSmallest = distancesTemp[i];
+            distanceOfSmallest = distances[i];
             break;
         }
     }
 
     // Now we can start comparing the other unvisited nodes
     // Note: distance of -1 implies not reachable yet and not a candidate for next step in Dijkstra's
-    for(i = i + 1; i < distancesTemp.size(); i++) 
+    for(i = i + 1; i < distances.size(); i++) 
     {
-        if(hasVisited[i] == false && distancesTemp[i] != -1 && distancesTemp[i] < distanceOfSmallest) {
+        if(hasVisited[i] == false && distances[i] != -1 && distances[i] < distanceOfSmallest) {
             indexOfSmallest = i;
-            distanceOfSmallest = distancesTemp[i];
+            distanceOfSmallest = distances[i];
         }
     }
 
     return indexOfSmallest;
 }
 
-bool Johnson::findShortestPathsFromSource(int src) 
+bool Johnson::findShortestPaths() 
 {   
     // Not part of implementation.
     vector<vector<Edge>> JohnList = *adjList;
@@ -111,73 +111,60 @@ bool Johnson::findShortestPathsFromSource(int src)
     // Copied from Dijkstra -----------------------------------------//
     for (int src = 0; src < numVerticies; src++)
     {
-        vector<int> copyTempDist = tempDist;
         // Initialize our distances array to -1 (to indicate not yet reachable)
-        for(size_t i = 0; i < tempDist.size(); i++) 
+        for(size_t i = 0; i < distances.size(); i++) 
         {
-            copyTempDist[i] = -1;
+            distances[i] = -1;
         }
 
         vector<bool> hasVisited(JohnList.size(), false); // initialize to false
 
         // analyze the first node
-        copyTempDist[src] = 0; // source node is reachable to itself duh... right?
-        distPositive.at(src).at(src) = 0;
+        distances[src] = 0; // source node is reachable to itself duh... right?
         for(size_t i = 0; i < JohnList.at(src).size(); i++) 
         {
-            //copyTempDist[JohnList.at(src).at(i).dest] = JohnList.at(src).at(i).weight;
-            distPositive.at(src).at(i) = JohnList.at(src).at(i).weight;
+            distances[JohnList.at(src).at(i).dest] = JohnList.at(src).at(i).weight;
         }
         hasVisited[src] = true;
 
-        int currentNode = findShortestUnvisited(hasVisited, copyTempDist);
+        int currentNode = findShortestUnvisited(hasVisited, distances);
         
         // analyze the rest of the nodes, which is basically the same as above
         // This is about O(V*E) currently. If you have time and energy, it may be worth
         // using a min-queue instead of scanning array to find next node.
         while(currentNode != -1) 
         {
-            for(size_t i = 0; i < JohnList.at(src).size(); i++) 
+            for(size_t i = 0; i < JohnList.at(currentNode).size(); i++) 
             {
-                int newPathWeight = JohnList.at(src).at(i).weight + copyTempDist[currentNode];
-                if(copyTempDist[JohnList.at(src).at(i).dest] == -1 || copyTempDist[JohnList.at(src).at(i).dest] > newPathWeight) 
+                int newPathWeight = JohnList.at(currentNode).at(i).weight + distances[currentNode];
+                if(distances[JohnList.at(currentNode).at(i).dest] == -1 || distances[JohnList.at(currentNode).at(i).dest] > newPathWeight) 
                 { // was currently unreachable
-                    distPositive.at(src).at(i) = newPathWeight;
-                    //copyTempDist[JohnList.at(src).at(i).dest] = newPathWeight;
+                    distances[JohnList.at(currentNode).at(i).dest] = newPathWeight;
                 }
             }
             hasVisited[currentNode] = true;
-            currentNode = findShortestUnvisited(hasVisited, copyTempDist);
-        
-            //distPositive.push_back(copyTempDist);
-
-            // for (size_t i = 0; i < distPositive.size(); i++) 
-            // {
-            //     for (size_t j = 0; j < distPositive.at(i).size(); j++) 
-            //     {
-            //         cout<<distPositive.at(i).at(j)<<" ";
-            //         JohnList.at(i).at(j).weight += tempDist[i] - tempDist[JohnList.at(i).at(j).dest];
-            //     }
-            //     cout<<endl;
-            // }
+            currentNode = findShortestUnvisited(hasVisited, distances);
 
         }
 
-
+        distPositive.push_back(distances);
     }
     // --------------------------------------------------------------//
 
-    // calculate back to original graph weights
-    // w (a, b) = w(a, b) + h(a) - h(b)
-
-    // for (size_t i = 0; i < JohnList.size(); i++) 
-    // {
-    //     for (size_t j = 0; j < JohnList.at(i).size(); j++) 
-    //     {
-    //         cout<<distPositive.at(i).at(j)<<" ";
-    //         //JohnList.at(i).at(j).weight  += tempDist[i] - tempDist[j];
-    //     }
-    // }
+    for (size_t i = 0; i < distPositive.size(); i++) 
+    {
+        for (size_t j = 0; j < distPositive.at(i).size(); j++) 
+        {
+            if (distPositive.at(i).at(j) == -1)
+            {
+                distPositive.at(i).at(j) = INF;
+            }
+            else
+            {
+                distPositive.at(i).at(j) += tempDist[j] - tempDist[i];
+            }
+        }
+    }
 
     auto stop = chrono::high_resolution_clock::now();
     chrono::duration<double, std::milli> time = stop - start;
@@ -187,6 +174,10 @@ bool Johnson::findShortestPathsFromSource(int src)
 
 void Johnson::printDistances() {
     cout<<"Distance Matrix\n";
+    for(size_t i = 0; i < distPositive.size(); i++) {
+        cout << "\t" << i;    
+    }
+    cout<<endl;
     for (size_t i = 0; i < distPositive.size(); i++)
     {
         cout << i << "|\t";

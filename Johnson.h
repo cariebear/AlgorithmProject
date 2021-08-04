@@ -13,7 +13,7 @@ public:
 
 	Johnson(TestCase &testCase);
 	
-	bool findShortestPathsFromSource(int src);
+	bool findShortestPaths();
 	void printDistances();
 	int getVert();
 

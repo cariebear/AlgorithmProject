@@ -40,7 +40,7 @@ int main(int argc, char * argv[]) {
 
 		Johnson J(testCase);
 		printf("\n*** Johnson ***\n");
-		if (J.findShortestPathsFromSource(0)) {
+		if (J.findShortestPaths()) {
 			J.printDistances();
 		} else {
 			printf("Could not find shortest distances for Johnson.\n");
