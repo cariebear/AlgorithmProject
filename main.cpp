@@ -6,56 +6,72 @@
 
 #include <string>
 #include <vector>
+#include <iostream>
+#include <fstream>
 
 using namespace std;
 
 int main(int argc, char * argv[]) {
 	vector<string> arguments(argv, argv + argc);
 	vector<TestCase> allTests;
+	vector<string> Output;
+	string tempStr;
+
+	ofstream file("Results.txt");
+
 	for (size_t i = 1; i < arguments.size(); i++) {
 		string& fileName = arguments.at(i);
 	
 		// build test case graph
 		TestCase testCase(fileName);
-		testCase.printList();
-
+		//testCase.printList();
+		cout<<"TEST CASE: "<<fileName<<endl;
 		// test algorithms
 		Dijkstra D(testCase);
-		printf("\n*** Dijkstra ***\n");
+		//printf("\n*** Dijkstra ***\n");
 		if (D.findShortestPathsFromSource(0)) {
-			D.printDistances();
+			//D.printDistances();
 		} else {
 			printf("Could not find shortest distances for Dijkstra.\n");
 		};
-		printf("Time taken: %f ms\n", D.timeTaken);
+		//printf("Time taken: %f ms\n", D.timeTaken);
 
 		BellmanFord B(testCase);
-		printf("\n*** BellmanFord ***\n");
+		//printf("\n*** BellmanFord ***\n");
 		if (B.findShortestPathsFromSource(0)) {
-			B.printDistances();
+			//B.printDistances();
 		} else {
 			printf("Could not find shortest distances for BellmanFord.\n");
 		};
-		printf("Time taken: %f ms\n", B.timeTaken);
+		//printf("Time taken: %f ms\n", B.timeTaken);
 
 		Johnson J(testCase);
-		printf("\n*** Johnson ***\n");
+		//printf("\n*** Johnson ***\n");
 		if (J.findShortestPaths()) {
-			J.printDistances();
+			//J.printDistances();
 		} else {
 			printf("Could not find shortest distances for Johnson.\n");
 		};
-		printf("Time taken: %f ms\n", J.timeTaken);
+		//printf("Time taken: %f ms\n", J.timeTaken);
 
 		FloydWarshall F(testCase);
-		printf("\n*** Floyd Warshall ***\n");
+		//printf("\n*** Floyd Warshall ***\n");
 		if (F.findShortestPaths()) {
-			F.printDistances();
+			//F.printDistances();
 		} else {
 			printf("Could not find shortest distances for FloydWarshall.\n");
 		};
-		printf("Time taken: %f ms\n", F.timeTaken);
+		//printf("Time taken: %f ms\n", F.timeTaken);
+
+		Output.push_back(fileName + " " + to_string(D.timeTaken) + " " + to_string(B.timeTaken) + " " + to_string(J.timeTaken) + " " + to_string(F.timeTaken));
 	}
+
+	for (size_t i = 0; i < Output.size(); i++)
+	{
+		file<<Output[i]<<endl;
+	}
+
+	file.close();
 
 	return 0;
 }
