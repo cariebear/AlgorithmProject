@@ -17,7 +17,8 @@ int main(int argc, char * argv[]) {
 	vector<string> Output;
 	string tempStr;
 
-	ofstream file("Results.txt");
+
+	ofstream file("AllResults.txt");
 
 	for (size_t i = 1; i < arguments.size(); i++) {
 		string& fileName = arguments.at(i);
@@ -25,7 +26,7 @@ int main(int argc, char * argv[]) {
 		// build test case graph
 		TestCase testCase(fileName);
 		//testCase.printList();
-		cout<<"TEST CASE: "<<fileName<<endl;
+
 		// test algorithms
 		Dijkstra D(testCase);
 		//printf("\n*** Dijkstra ***\n");
@@ -71,6 +72,7 @@ int main(int argc, char * argv[]) {
 		file<<Output[i]<<endl;
 	}
 
+	file << flush;
 	file.close();
 
 	return 0;
