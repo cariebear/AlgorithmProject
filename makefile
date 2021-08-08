@@ -5,10 +5,13 @@ DEPENDS = Johnson.cpp Dijkstra.cpp BellmanFord.cpp FloydWarshall.cpp TestCase.cp
 
 TARGET = output
 
-FILES = $(wildcard negNotSparseFalse/*.txt) $(wildcard negNotSparseTrue/*.txt) $(wildcard negSparseFalse/*.txt) $(wildcard negSparseTrue/*.txt) $(wildcard posNotSparseFalse/*.txt) $(wildcard posNotSparseTrue/*.txt) $(wildcard posSparseFalse/*.txt) $(wildcard posSparseTrue/*.txt)
+FILES = $(wildcard nNotSparseFalse/*.txt) $(wildcard nNotSparseTrue/*.txt) $(wildcard nSparseFalse/*.txt) $(wildcard nSparseTrue/*.txt) $(wildcard pNotSparseFalse/*.txt) $(wildcard pNotSparseTrue/*.txt) $(wildcard pSparseFalse/*.txt) $(wildcard pSparseTrue/*.txt)
+
+DIRECT = nNotSparseFalse nNotSparseTrue nSparseFalse nSparseTrue pNotSparseFalse pNotSparseTrue pSparseFalse pSparseTrue
 
 graphs:
-	g++ -std=c++17 GraphGenerator.cpp -o testCases
+	mkdir $(DIRECT)
+	g++ -std=c++11 GraphGenerator.cpp -o testCases
 	./testCases
 
 Mac:
@@ -23,4 +26,4 @@ run:
 clean:
 	@echo "Removing $(TARGET)"
 	rm -f $(TARGET)
-	#rm -f $(FILES)
+	rm -rf $(DIRECT)

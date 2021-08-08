@@ -13,9 +13,11 @@ class TestCase {
         vector<vector<Edge>> adjList;
         TestCase(string fileName);
         void printList();
+        int printSum();
     private:
         string fileName;
         bool isUndirected;
+        int edgeSum;
 };
 
 #endif

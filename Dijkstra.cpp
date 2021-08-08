@@ -9,6 +9,7 @@ Dijkstra::Dijkstra(TestCase &testCase) {
     adjList = &testCase.adjList;
     numVerticies = adjList->size();
     distances.resize(numVerticies);
+    timeTaken = 0.0;
 }
 
 bool Dijkstra::findShortestPathsFromSource(int src) {
@@ -18,7 +19,7 @@ bool Dijkstra::findShortestPathsFromSource(int src) {
     for(size_t i = 0; i < adjList->size(); i++) {
         for(size_t j = 0; j < adjList->at(i).size(); j++) {
             if(adjList->at(i).at(j).weight < 0) {
-                cout << "Sorry! Cannot run Dijkstra's Algorithm with negative weights." << endl;
+                //cout << "Sorry! Cannot run Dijkstra's Algorithm with negative weights." << endl;
                 return false;
             }
         }

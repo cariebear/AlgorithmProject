@@ -9,6 +9,7 @@ BellmanFord::BellmanFord(TestCase &testCase) {
     adjList = &testCase.adjList;
     numVerticies = adjList->size();
     distances.resize(numVerticies);
+    timeTaken = 0.0;
 }
 
 bool BellmanFord::findShortestPathsFromSource(int src) {
@@ -42,7 +43,6 @@ bool BellmanFord::findShortestPathsFromSource(int src) {
                 auto stop = chrono::high_resolution_clock::now();
                 chrono::duration<double, std::milli> time = stop - start;
                 timeTaken = time.count();
-                printf("A negative weight cycle was found.\n");
                 return false;
             }
         }

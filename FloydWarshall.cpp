@@ -9,6 +9,7 @@ FloydWarshall::FloydWarshall(TestCase &testCase) {
     adjList = &testCase.adjList;
     numVerticies = adjList->size();
     distMatrix = vector<vector<int>>(adjList->size(), vector<int>(adjList->size(), INF));
+    timeTaken = 0.0;
 }
 
 bool FloydWarshall::findShortestPaths() {
@@ -44,7 +45,6 @@ bool FloydWarshall::findShortestPaths() {
                         // with negative cycle. However, the distances could underflow and 
                         // while we could adopt a strategy to handle it, it'd be far easier to
                         // not allow it.
-                        cout << "Negative cycle detected! Aborting." << endl;
                         auto stop = chrono::high_resolution_clock::now();
                         chrono::duration<double, std::milli> time = stop - start;
                         timeTaken = time.count();

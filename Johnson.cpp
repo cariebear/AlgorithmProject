@@ -11,7 +11,7 @@ Johnson::Johnson(TestCase &testCase) {
     adjList = &testCase.adjList;
     numVerticies = adjList->size();
     distances.resize(numVerticies);
-    //distPositive = vector<vector<int>>(adjList->size(), vector<int>(adjList->size(), INF));
+    timeTaken = 0.0;
 }
 
 int Johnson::getVert()
@@ -90,6 +90,23 @@ bool Johnson::findShortestPaths()
                     tempDist[dest] = tempDist[i] + weight;
                 }
             }
+        }
+    }
+
+    // check for negative cycles
+    for (size_t i = 0; i < JohnList.size(); i++)
+    {
+        for (size_t j = 0; j < JohnList.at(i).size(); j++)
+        {
+            int dest = JohnList.at(i).at(j).dest;
+            int weight = JohnList.at(i).at(j).weight;
+            if (tempDist[i] != __INT_MAX__ && tempDist[i] + weight < tempDist[dest]) 
+            {
+                auto stop = chrono::high_resolution_clock::now();
+                chrono::duration<double, std::milli> time = stop - start;
+                timeTaken = time.count();
+                return false;
+            } 
         }
     }
     // --------------------------------------------------------------//

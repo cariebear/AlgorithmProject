@@ -13,6 +13,7 @@ TestCase::TestCase(string fileName) : fileName(fileName) {
     // first line is the number of verticies in the graph
     int numVerticies;
     fileIn >> numVerticies;
+    fileIn >> edgeSum;
 
     // resize the vector to hold `N` elements
     adjList.resize(numVerticies);
@@ -30,6 +31,11 @@ TestCase::TestCase(string fileName) : fileName(fileName) {
             adjList[dest].push_back({src, weight});
         }
     }
+}
+
+int TestCase::printSum()
+{
+    return edgeSum;
 }
 
 void TestCase::printList() {
