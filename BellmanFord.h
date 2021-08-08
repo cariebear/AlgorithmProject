@@ -18,6 +18,7 @@ public:
 private:
 	int numVerticies;
 	vector<vector<Edge>> *adjList;
+	const int INF = std::numeric_limits<int>::max();
 };
 
 #endif

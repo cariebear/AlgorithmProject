@@ -28,33 +28,27 @@ bool FloydWarshall::findShortestPaths() {
     }
 
     // Core of algorithm
-    for(size_t k = 0; k < adjList->size(); k++) {
-        for(size_t i = 0; i < distMatrix.size(); i++) {
-            for(size_t j = 0; j < distMatrix.size(); j++) {
-                if(i != j) {
-                    if(distMatrix.at(i).at(k) != INF && distMatrix.at(k).at(j) != INF
-                    && distMatrix.at(i).at(j) > distMatrix.at(i).at(k) + distMatrix.at(k).at(j)) {
+    for(size_t k = 0; k < this->numVerticies; k++) {
+        for(size_t i = 0; i < this->numVerticies; i++) {
+            for(size_t j = 0; j < this->numVerticies; j++) {
+                if (distMatrix.at(i).at(j) > (distMatrix.at(i).at(k) + distMatrix.at(k).at(j))
+                    && distMatrix.at(k).at(j) != INF) {
                         distMatrix.at(i).at(j) = distMatrix.at(i).at(k) + distMatrix.at(k).at(j);
-                    }
-                }
-                else { // is diagonal; check for negative cycles, otherwise 0 is fine.
-                    if(distMatrix.at(i).at(k) != INF && distMatrix.at(k).at(j) != INF
-                    && distMatrix.at(i).at(k) + distMatrix.at(k).at(j) < 0) {
-
-                        // Negative cycle detected. Technically, the algorithm can continue
-                        // with negative cycle. However, the distances could underflow and 
-                        // while we could adopt a strategy to handle it, it'd be far easier to
-                        // not allow it.
-                        auto stop = chrono::high_resolution_clock::now();
-                        chrono::duration<double, std::milli> time = stop - start;
-                        timeTaken = time.count();
-                        return false;
-                    }
                 }
             }
         }
     }
 
+    // check for negative cycles
+    for (size_t i = 0; i < this->numVerticies; i++) {
+        if (distMatrix.at(i).at(i) < 0) {
+            auto stop = chrono::high_resolution_clock::now();
+            chrono::duration<double, std::milli> time = stop - start;
+            timeTaken = time.count();
+            return false;
+        }
+    }
+    
     auto stop = chrono::high_resolution_clock::now();
     chrono::duration<double, std::milli> time = stop - start;
     timeTaken = time.count();
