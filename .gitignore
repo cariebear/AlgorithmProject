@@ -2,3 +2,4 @@ output
 .vscode/
 output.dSYM/Contents/Info.plist
 output.dSYM/Contents/Resources/DWARF/output
+.DS_Store
