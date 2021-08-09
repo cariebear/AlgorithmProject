@@ -27,14 +27,13 @@ bool Dijkstra::findShortestPathsFromSource(int src) {
 
     auto start = chrono::high_resolution_clock::now();
 
-    // Initialize our distances array to -1 (to indicate not yet reachable)
+    // Initialize our distances array to INF (to indicate not yet reachable)
     for(size_t i = 0; i < distances.size(); i++) {
         distances[i] = INF;
     }
 
     vector<bool> hasVisited(adjList->size(), false); // initialize to false
 
-    // analyze the first node
     distances[src] = 0; // source node is reachable to itself duh... right?
 
     for (size_t v = 0; v < this->numVerticies - 1; v++) {

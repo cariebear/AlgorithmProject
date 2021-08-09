@@ -62,7 +62,6 @@ int main(int argc, char * argv[]) {
 		};
 		//printf("Time taken: %f ms\n", F.timeTaken);
 
-		fileName.erase(fileName.size() - 4);
 		Output.push_back(fileName + " " + to_string(testCase.printSum()) + " " + to_string(D.timeTaken) + " " + to_string(B.timeTaken) + " " + to_string(J.timeTaken) + " " + to_string(F.timeTaken));
 	}
 

@@ -20,38 +20,24 @@ int Johnson::getVert()
 }
 
 // Part of the Dijkstra implementation
-int findShortestUnvisited(vector<bool>& hasVisited, vector<int>& distances) 
-{
-    int indexOfSmallest = -1;
-    int distanceOfSmallest = -1;
+// Returns the index of the node with the smallest distance that hasn't been visited
+int Johnson::findShortestUnvisited(vector<bool>& hasVisited, vector<int>& distances) {
+    int distanceOfSmallest = INF;
+    int indexOfSmallest;
 
-    // First, find the first unvisited node
-    size_t i; // index
-    for(i = 0; i < distances.size(); i++) 
-    {
-        // Note: distance of -1 implies not reachable yet and not a candidate for next step in Dijkstra's
-        if(hasVisited[i] == false && distances[i] != -1) { 
+    for (size_t i = 0; i < this->numVerticies; i++) {
+        if (hasVisited.at(i) == false && distances.at(i) <= distanceOfSmallest) {
+            distanceOfSmallest = distances.at(i);
             indexOfSmallest = i;
-            distanceOfSmallest = distances[i];
-            break;
         }
     }
-
-    // Now we can start comparing the other unvisited nodes
-    // Note: distance of -1 implies not reachable yet and not a candidate for next step in Dijkstra's
-    for(i = i + 1; i < distances.size(); i++) 
-    {
-        if(hasVisited[i] == false && distances[i] != -1 && distances[i] < distanceOfSmallest) {
-            indexOfSmallest = i;
-            distanceOfSmallest = distances[i];
-        }
-    }
-
+    
     return indexOfSmallest;
 }
 
 bool Johnson::findShortestPaths() 
 {   
+
     // Not part of implementation.
     vector<vector<Edge>> JohnList = *adjList;
     JohnList.resize(numVerticies + 1);
@@ -128,40 +114,27 @@ bool Johnson::findShortestPaths()
     // Copied from Dijkstra -----------------------------------------//
     for (int src = 0; src < numVerticies; src++)
     {
-        // Initialize our distances array to -1 (to indicate not yet reachable)
-        for(size_t i = 0; i < distances.size(); i++) 
-        {
-            distances[i] = -1;
+        // Initialize our distances array to INF (to indicate not yet reachable)
+        for(size_t i = 0; i < distances.size(); i++) {
+            distances[i] = INF;
         }
 
-        vector<bool> hasVisited(JohnList.size(), false); // initialize to false
+        vector<bool> hasVisited(adjList->size(), false); // initialize to false
 
-        // analyze the first node
         distances[src] = 0; // source node is reachable to itself duh... right?
-        for(size_t i = 0; i < JohnList.at(src).size(); i++) 
-        {
-            distances[JohnList.at(src).at(i).dest] = JohnList.at(src).at(i).weight;
-        }
-        hasVisited[src] = true;
 
-        int currentNode = findShortestUnvisited(hasVisited, distances);
-        
-        // analyze the rest of the nodes, which is basically the same as above
-        // This is about O(V*E) currently. If you have time and energy, it may be worth
-        // using a min-queue instead of scanning array to find next node.
-        while(currentNode != -1) 
-        {
-            for(size_t i = 0; i < JohnList.at(currentNode).size(); i++) 
-            {
-                int newPathWeight = JohnList.at(currentNode).at(i).weight + distances[currentNode];
-                if(distances[JohnList.at(currentNode).at(i).dest] == -1 || distances[JohnList.at(currentNode).at(i).dest] > newPathWeight) 
-                { // was currently unreachable
-                    distances[JohnList.at(currentNode).at(i).dest] = newPathWeight;
+        for (size_t v = 0; v < this->numVerticies - 1; v++) {
+            int currentNode = findShortestUnvisited(hasVisited, distances);
+            hasVisited[currentNode] = true;
+
+            for (size_t i = 0; i < adjList->at(currentNode).size(); i++) {
+                Edge edge = adjList->at(currentNode).at(i);
+
+                int newPathWeight = edge.weight + distances[currentNode];
+                if (!hasVisited[edge.dest] && distances.at(currentNode) != INF && newPathWeight < distances.at(edge.dest)) {
+                    distances[edge.dest] = newPathWeight;
                 }
             }
-            hasVisited[currentNode] = true;
-            currentNode = findShortestUnvisited(hasVisited, distances);
-
         }
 
         distPositive.push_back(distances);

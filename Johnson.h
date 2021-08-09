@@ -20,6 +20,7 @@ public:
 private:
 	int numVerticies;
 	vector<vector<Edge>> *adjList;
+	int findShortestUnvisited(vector<bool>& hasVisited, vector<int> & distances);
 	const int INF = std::numeric_limits<int>::max();
 };
 
