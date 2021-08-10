@@ -52,37 +52,41 @@ void RandomGraph(int vertices, int weight, bool sparse, bool direction)
 
 	std::string temp;
 
+	int padding = 0;
+	if (vertices < 10) {
+		padding = 1;
+	}
 	if (weight < 0 && sparse && direction)
 	{
-		temp = "nSparseFalse/" + std::string(2, '0').append(std::to_string(vertices)) + ".txt";
+		temp = "nSparseFalse/" + std::string(padding, '0').append(std::to_string(vertices)) + ".txt";
 	}
 	else if (weight < 0 && !sparse && direction)
 	{
-		temp = "nNotSparseFalse/" + std::string(2, '0').append(std::to_string(vertices)) + ".txt";
+		temp = "nNotSparseFalse/" + std::string(padding, '0').append(std::to_string(vertices)) + ".txt";
 	}
 	else if (weight < 0 && sparse && !direction)
 	{
-		temp = "nSparseTrue/" + std::string(2, '0').append(std::to_string(vertices)) + ".txt";
+		temp = "nSparseTrue/" + std::string(padding, '0').append(std::to_string(vertices)) + ".txt";
 	}
 	else if (weight < 0 && !sparse && !direction)
 	{
-		temp = "nNotSparseTrue/" + std::string(2, '0').append(std::to_string(vertices)) + ".txt";
+		temp = "nNotSparseTrue/" + std::string(padding, '0').append(std::to_string(vertices)) + ".txt";
 	}
 	else if (weight == 0 && sparse && direction)
 	{
-		temp = "pSparseFalse/" + std::string(2, '0').append(std::to_string(vertices)) + ".txt";
+		temp = "pSparseFalse/" + std::string(padding, '0').append(std::to_string(vertices)) + ".txt";
 	}
 	else if (weight == 0 && !sparse && direction)
 	{
-		temp = "pNotSparseFalse/" + std::string(2, '0').append(std::to_string(vertices)) + ".txt";
+		temp = "pNotSparseFalse/" + std::string(padding, '0').append(std::to_string(vertices)) + ".txt";
 	}
 	else if (weight == 0 && sparse && !direction)
 	{
-		temp = "pSparseTrue/" + std::string(2, '0').append(std::to_string(vertices)) + ".txt";
+		temp = "pSparseTrue/" + std::string(padding, '0').append(std::to_string(vertices)) + ".txt";
 	}
 	else if (weight == 0 && !sparse && !direction)
 	{
-		temp = "pNotSparseTrue/" + std::string(2, '0').append(std::to_string(vertices)) + ".txt";
+		temp = "pNotSparseTrue/" + std::string(padding, '0').append(std::to_string(vertices)) + ".txt";
 	}
 
 	// for (int i = 0; i < List.size(); i++)
