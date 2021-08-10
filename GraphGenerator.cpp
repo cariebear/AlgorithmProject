@@ -6,6 +6,7 @@
 #include <fstream>
 #include <vector>
 #include <algorithm>
+#include <string>
 
 struct Info {
 	int _dest;
@@ -25,7 +26,7 @@ void RandomGraph(int vertices, int weight, bool sparse, bool direction)
 		int tempEdge = 0;
 		if (sparse)
 		{
-			numedges = (std::rand() % 3);
+			numedges = (std::rand() % 2);
 		}
 		else if (!sparse)
 		{
@@ -50,39 +51,85 @@ void RandomGraph(int vertices, int weight, bool sparse, bool direction)
 	}
 
 	std::string temp;
+
 	if (weight < 0 && sparse && direction)
 	{
-		temp = "nSparseFalse/" + std::to_string(vertices) + ".txt";
+		temp = "nSparseFalse/" + std::string(2, '0').append(std::to_string(vertices)) + ".txt";
 	}
 	else if (weight < 0 && !sparse && direction)
 	{
-		temp = "nNotSparseFalse/" + std::to_string(vertices) + ".txt";
+		temp = "nNotSparseFalse/" + std::string(2, '0').append(std::to_string(vertices)) + ".txt";
 	}
 	else if (weight < 0 && sparse && !direction)
 	{
-		temp = "nSparseTrue/" + std::to_string(vertices) + ".txt";
+		temp = "nSparseTrue/" + std::string(2, '0').append(std::to_string(vertices)) + ".txt";
 	}
 	else if (weight < 0 && !sparse && !direction)
 	{
-		temp = "nNotSparseTrue/" + std::to_string(vertices) + ".txt";
+		temp = "nNotSparseTrue/" + std::string(2, '0').append(std::to_string(vertices)) + ".txt";
 	}
 	else if (weight == 0 && sparse && direction)
 	{
-		temp = "pSparseFalse/" + std::to_string(vertices) + ".txt";
+		temp = "pSparseFalse/" + std::string(2, '0').append(std::to_string(vertices)) + ".txt";
 	}
 	else if (weight == 0 && !sparse && direction)
 	{
-		temp = "pNotSparseFalse/" + std::to_string(vertices) + ".txt";
+		temp = "pNotSparseFalse/" + std::string(2, '0').append(std::to_string(vertices)) + ".txt";
 	}
 	else if (weight == 0 && sparse && !direction)
 	{
-		temp = "pSparseTrue/" + std::to_string(vertices) + ".txt";
+		temp = "pSparseTrue/" + std::string(2, '0').append(std::to_string(vertices)) + ".txt";
 	}
 	else if (weight == 0 && !sparse && !direction)
 	{
-		temp = "pNotSparseTrue/" + std::to_string(vertices) + ".txt";
+		temp = "pNotSparseTrue/" + std::string(2, '0').append(std::to_string(vertices)) + ".txt";
 	}
 
+	// for (int i = 0; i < List.size(); i++)
+	// {
+	// 	for (size_t j = 0; j < List.at(i).size(); j++)
+	// 	{
+	// 		if (List.at(i).at(j)._dest == List.at(j).at(i)._dest)
+	// 		{
+	// 			List[i].erase(j);
+	// 		}
+	// 	}
+	// }
+
+	std::vector<std::vector<Info>> ListDirected;
+	ListDirected.resize(vertices);
+	if (direction == false)
+	{
+		int tempList[vertices][vertices][2] = {0};
+		for (int i = 0; i < List.size(); i++)
+		{
+			for (int j = 0; j < List.at(i).size(); j++)
+			{
+				tempList[i][j][0] = List.at(i).at(j)._dest;
+				tempList[i][j][1] = List.at(i).at(j)._weights;
+			}
+		}
+
+		for (int i = 0; i < vertices; i++)
+		{
+			for (int j = 0; j < vertices; j++)
+			{
+				if (tempList[i][j][0] == tempList[j][i][0])
+				{break;}
+				else if (tempList[i][j][0] == 0 && tempList[i][j][1] == 0)
+				{break;}
+				else if (tempList[i][j][0] >= vertices && tempList[i][j][1] >= vertices)
+				{break;}
+				else if (tempList[i][j][0] < 0)
+				{break;}
+				else 
+				{	
+					ListDirected[i].push_back({tempList[i][j][0], tempList[i][j][1]});				
+					//std::cout<<i<<" "<<tempList[i][j][0]<<" "<<tempList[i][j][1]<<std::endl;
+				}
+			}
+		}
+	}
 	std::ofstream file(temp);
 	file << vertices << std::endl;
 	file << Edges << std::endl;
